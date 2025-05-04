@@ -3,4 +3,20 @@
   <groupId>adoptme</groupId>
   <artifactId>adoptme</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <name>Adopt Me</name>
+  
+  <properties>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+  
+  <dependencies>
+    <!-- Gson for JSON handling -->
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.13.1</version>
+    </dependency>
+  </dependencies>
 </project>
