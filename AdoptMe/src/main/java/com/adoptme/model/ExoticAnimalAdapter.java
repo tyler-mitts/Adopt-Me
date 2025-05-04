@@ -2,6 +2,10 @@ package com.adoptme.model;
 
 import com.adoptme.external.ExoticAnimal;
 
+/**
+ * Adapter class to make ExoticAnimal compatible with our Pet hierarchy.
+ * Implements the Adapter design pattern.
+ */
 public class ExoticAnimalAdapter extends Pet {
 	private ExoticAnimal exoticAnimal;
 

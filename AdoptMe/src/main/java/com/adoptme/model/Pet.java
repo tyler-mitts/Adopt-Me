@@ -35,6 +35,10 @@ public abstract class Pet implements Comparable<Pet> {
 		return id;
 	}
 
+	/**
+     * Sets the pet's ID
+     * @param id the ID to set
+     */
 	public void setId(int id) {
 		this.id = id;
 	}
@@ -75,7 +79,7 @@ public abstract class Pet implements Comparable<Pet> {
 
 	/**
      * Gets the pet's Species
-     * @return the pet's ID
+     * @return the pet's Species
      */
 
 	public String getSpecies() {
