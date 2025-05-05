@@ -15,6 +15,8 @@ import java.util.List;
  * Implements the View part of MVC pattern using Swing.
  */
 public class PetView extends JFrame {
+	private static final long serialVersionUID = 1L;
+	
 	private final PetController controller;
 	private JTable petTable;
 	private DefaultTableModel tableModel;
@@ -46,6 +48,8 @@ public class PetView extends JFrame {
 		
 		String[] columnNames = {"ID", "Name", "Type", "Species", "Age", "Status"};
 		tableModel = new DefaultTableModel(columnNames, 0) {
+			private static final long serialVersionUID = 1L;
+			
 			@Override
 			public boolean isCellEditable(int row, int column) {
                 return false;

@@ -5,7 +5,12 @@ import com.adoptme.model.*;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Dialog for adding new pets to the adoption center.
+ */
 public class AddPetDialog extends JDialog {
+	private static final long serialVersionUID = 1L;
+	
 	private Pet pet;
 	
 	private JTextField idField;
@@ -37,7 +42,7 @@ public class AddPetDialog extends JDialog {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.insets = new Insets(5, 5, 5, 5);
         
-     // ID field
+        // ID field
         gbc.gridx = 0;
         gbc.gridy = 0;
         formPanel.add(new JLabel("ID:"), gbc);

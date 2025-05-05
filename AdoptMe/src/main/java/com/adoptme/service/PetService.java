@@ -17,7 +17,7 @@ import java.util.List;
 public class PetService {
 	private static final String RESOURCES_PATH = "src/main/resources/";
 	private static final String PETS_FILE = "pets.json";
-    private static final String EXOTIC_PETS_FILE = "exotic_pets.json";
+    private static final String EXOTIC_PETS_FILE = "exotic_animals.json";
     
     private final Gson gson;
     
