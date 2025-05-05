@@ -3,12 +3,15 @@ package com.adoptme.util;
 import com.adoptme.model.Pet;
 import java.util.Comparator;
 
-/* Utility class providing comparator implementations for sorting by name, age, and species. */
+/**
+ *  Utility class providing comparator implementations for sorting by name, age, and species.
+ */
 
 public class PetComparators {
 
-	/* Compares Names: */
-	/* Handles all null values */
+	/**
+     * Comparator to sort pets by name (alphabetical) (Slightly redundant, replicates default behavior)
+     */
 	
 	public static class NameComparator implements Comparator<Pet> {
 		@Override
@@ -30,7 +33,9 @@ public class PetComparators {
 		}
 	}
 	
-	/* Compares Age: */
+	/**
+     * Comparator to sort pets by age (ascending)
+     */
 
 	public static class AgeComparator implements Comparator<Pet> {
 		@Override
@@ -39,8 +44,9 @@ public class PetComparators {
 		}
 	}
 	
-	/* Compares Species: */
-	/* Handles all null values */
+	/**
+     * Comparator to sort pets by species (alphabetically)
+     */
 
 	public static class SpeciesComparator implements Comparator<Pet> {
 		@Override
@@ -61,4 +67,77 @@ public class PetComparators {
 			return species1.compareToIgnoreCase(species2);
 		}
 	}
+	
+	/**
+     * Comparator to sort pets by type (alphabetically)
+     */
+    public static class TypeComparator implements Comparator<Pet> {
+        @Override
+        public int compare(Pet pet1, Pet pet2) {
+        	String type1 = pet1.getType();
+			String type2 = pet2.getType();
+
+			if (type1 == null && type2 == null) {
+				return 0;
+			}
+			if (type1 == null) {
+				return 1;
+			}
+			if (type2 == null) {
+				return -1;
+			}
+
+			return type1.compareToIgnoreCase(type2);
+        }
+    }
+    
+    /**
+     * Comparator to sort pets by adoption status (available first)
+     */
+    public static class AdoptionStatusComparator implements Comparator<Pet> {
+    	@Override
+        public int compare(Pet pet1, Pet pet2) {
+    		return Boolean.compare(pet1.isAdopted(), pet2.isAdopted());
+        }
+    }
+    
+    /**
+     * Comparator to sort pets by type and then by name
+     */
+    public static class TypeThenNameComparator implements Comparator<Pet> {
+        @Override
+        public int compare(Pet pet1, Pet pet2) {
+        	String type1 = pet1.getType();
+			String type2 = pet2.getType();
+            String name1 = pet1.getName();
+			String name2 = pet2.getName();
+
+			if (type1 == null && type2 == null) {
+				return 0;
+			}
+			if (type1 == null) {
+				return 1;
+			}
+			if (type2 == null) {
+				return -1;
+			}
+
+			int typeCompare = type1.compareToIgnoreCase(type2);
+            if (typeCompare != 0) {
+                return typeCompare;
+            }
+
+			if (name1 == null && name2 == null) {
+				return 0;
+			}
+			if (name1 == null) {
+				return 1;
+			}
+			if (name2 == null) {
+				return -1;
+			}
+
+			return name1.compareToIgnoreCase(name2);
+        }
+    }
 }
