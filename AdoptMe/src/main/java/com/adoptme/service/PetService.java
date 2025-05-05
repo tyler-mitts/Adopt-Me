@@ -21,6 +21,10 @@ public class PetService {
     
     private final Gson gson;
     
+    /**
+     * Constructor for PetService
+     * Initializes Gson with custom type adapters
+     */
     public PetService() {
     	this.gson = new GsonBuilder()
     			.registerTypeAdapter(Pet.class, new PetDeserializer())
@@ -45,6 +49,25 @@ public class PetService {
     		return pets != null ? pets : new ArrayList<>();
     	}
     }
+    
+    /**
+     * Load exotic pets from JSON file
+     * @return List of exotic animals
+     * @throws IOException if file cannot be read
+     */
+    public List<ExoticAnimal> loadExoticPets() throws IOException {
+        File file = new File(RESOURCES_PATH + EXOTIC_PETS_FILE);
+        if (!file.exists()) {
+            return new ArrayList<>();
+        }
+        
+        try (Reader reader = new FileReader(file)) {
+            Type listType = new com.google.gson.reflect.TypeToken<List<ExoticAnimal>>(){}.getType();
+            List<ExoticAnimal> exoticAnimals = gson.fromJson(reader, listType);
+            return exoticAnimals != null ? exoticAnimals : new ArrayList<>();
+        }
+    }
+
     
     /**
      * Save pets to JSON file with timestamp
@@ -72,22 +95,36 @@ public class PetService {
     	public Pet deserialize(JsonElement json, Type typeofT, JsonDeserializationContext context) 
     			throws JsonParseException {
     		JsonObject jsonObject = json.getAsJsonObject();
-    		String species = jsonObject.get("species").getAsString();
+    		String type = jsonObject.get("type").getAsString();
     		
-    		switch (species.toLowerCase()) {
-    			case "dog":
-    				return context.deserialize(json, Dog.class);
-    			case "cat":
-    				return context.deserialize(json, Cat.class);
-    			case "rabbit":
-    				return context.deserialize(json, Rabbit.class);
-    			default:
-    				if (species.toLowerCase().startsWith("exotic")) {
-                        ExoticAnimal exotic = context.deserialize(json, ExoticAnimal.class);
-                        return new ExoticAnimalAdapter(exotic);
-                    }
-                    throw new JsonParseException("Unknown species: " + species);
-    		}
+    		 switch (type.toLowerCase()) {
+	             case "dog":
+	                 return new Dog(
+	                     jsonObject.get("id").getAsInt(),
+	                     jsonObject.get("name").getAsString(),
+	                     jsonObject.get("species").getAsString(),
+	                     jsonObject.get("age").getAsInt(),
+	                     jsonObject.get("adopted").getAsBoolean()
+	                 );
+	             case "cat":
+	                 return new Cat(
+	                     jsonObject.get("id").getAsInt(),
+	                     jsonObject.get("name").getAsString(),
+	                     jsonObject.get("species").getAsString(),
+	                     jsonObject.get("age").getAsInt(),
+	                     jsonObject.get("adopted").getAsBoolean()
+	                 );
+	             case "rabbit":
+	                 return new Rabbit(
+	                     jsonObject.get("id").getAsInt(),
+	                     jsonObject.get("name").getAsString(),
+	                     jsonObject.get("species").getAsString(),
+	                     jsonObject.get("age").getAsInt(),
+	                     jsonObject.get("adopted").getAsBoolean()
+	                 );
+	             default:
+	                 throw new JsonParseException("Unknown pet type: " + type);
+    		 }
     	}
     }
 }
